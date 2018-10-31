@@ -1,0 +1,136 @@
+!
+:#include "robot-config.h"
+#include "math.h"
+
+
+/*
+
+We should probably avoid blocking functions like "Motor.rotateFor()",
+which stops the current thread until the function has finished. If we're
+checking for controller input in the same thread, none will be captured
+while a blocking function is running. One solution in that case is to open
+a separate thread (I think they're called tasks in VexC) and run the function
+in it, but that gets messy and complicated really quickly.
+
+Another solution is to keep the flow of control within a single loop that
+never pauses. Any user input is checked once through the loop, so it might
+look something like this:
+
+while (1) {
+    Controller.ButtonL1.pressed(response1)
+    Controller.ButtonL2.pressed(response2)
+    
+    task::sleep(1);
+}
+
+For behaviors that manifest over time like the "speed up" drive function,
+a value will need to be stored which describes how "far along" that
+behavior is. The value will be incremented/decremented little by little through
+each loop, so it is important that the loop's delay is well controlled.
+
+
+
+*/
+
+int top_left[] =        [-1,  1];
+int top_right[] =       [ 1,  1];
+int bottom_left[] =     [-1, -1];
+int bottom_right[] =    [ 1, -1];
+
+int motors[] = [0, 0, 0, 0];
+
+//  1. resolve axis direction
+//  2. for each motor, get constant direction
+//  3. dot axis direction with motor direction
+//      = A_x*B_x + A_y*B_y
+//  4. result is primary motor rotation scalar
+
+
+//functions ----------------------------------------------------
+//drive functions-------------------------------------------
+    
+//"speed up" no instant acceleration, ease on motors
+            
+//3 speeds fast, med, slow 
+    
+//control wheels with controller
+        
+/* Pseudocode:
+        
+        
+        
+ */
+
+// 
+    
+    
+    
+//lift functions--------------------------------------------
+
+//lift to top post
+        
+//lift to med post
+        
+//lift down
+
+// ^^ controlled by D pad -- tapping up instructs the lift to
+// raise to the next position up. Should be able to double tap
+// to move from "down" to "top" immediately, vice versa downwards
+    
+//control lift with controller
+
+// ^^ 
+       
+//shooter functions-----------------------------------------
+    
+//calculate distance to flag
+
+//calculate velocity needed to shoot
+        
+//aim at flag
+
+// adjust aim for robot movement
+    
+//kill button, switches to preset position with driver aiming
+        
+//preset positions (need to pick where we what our presets to be)
+
+//intake functions------------------------------------------
+
+//always on....button to reverse, button stop
+    
+//claw functions--------------------------------------------
+        
+//press button to flip cap (keeps track of orientation so it flips cw then ccw)
+
+
+// prepare for 
+void initialize() {
+    
+}
+
+// 
+void autonomous() {
+    
+}
+
+void manual() {
+  while (1) {
+        
+        
+        
+	// checks happen every millisecond
+	task::sleep(1);
+  }
+}
+
+int main() {
+    
+  initialize();
+    
+  autonomous();
+    
+  manual();
+    
+}
+
